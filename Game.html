@@ -104,19 +104,26 @@
 		classToSet = peopleVisible ? "charactor visible" : "charactor hidden";
 		for(var index = 0; index < 16; index++) {
     		board.children[index].className = classToSet;
-			board.children[index].onclick = changeScore(-2)
+			board.children[index].onclick = subScore()
 		}
 		board.children[randomNumber-1].className = classToSet + " theif";
-		board.children[randomNumber-1].onclick = changeScore(1)
+		board.children[randomNumber-1].onclick = addScore()
 	}
 
-function changeScore(change) {
-	if (unlocked = true) {
-		gameScore + change;
-	}
-	unlocked = false;
+	function addScore() {
+		if (unlocked = true) {
+			gameScore++;
+		}
+		unlocked = false;
 
-}
+	}
+	function subScore() {
+		if (unlocked = true) {
+			gameScore= gameScore - 2;
+		}
+		unlocked = false;
+
+	}
 	</script>
 </body>
 </html>

@@ -1,0 +1,112 @@
+<html>
+<head>
+	<title>Game</title>
+	<style>
+		#border {
+			background: url(Backdrop.jpg);
+			background-size: cover;
+			border:1px solid black;
+			background-color:gray;
+			height:650px;
+			width:650px;
+
+		}
+		
+		.charactor{
+			background: url(Good.jpg);
+			background-size: cover;
+			width:120px;
+			height:120px;
+			padding:10px;
+			margin:10px;
+			float:left;
+			font-size:30px;
+			text-align: center;
+			line-height: 40px;
+			display:none
+		}
+		.hidden {
+			display: none;
+		}
+		.visible {
+			display:block;
+		}
+		.theif {
+			background: url(Bad.jpg);
+			background-size: cover;
+		}
+		
+	</style>
+	<script>
+
+	</script>
+</head>
+<body>
+	<h1>Click on the witch to get rid of her and earn a point! </h1><p>Please do not click on her more than one time each time she appears.</p>
+	<input type="button" value="Play" onclick="startGame()";/>
+	<div id="border">
+	<div class="charactor"></div>
+	<div class="charactor"></div>
+	<div class="charactor"></div>
+	<div class="charactor"></div>
+	<div class="charactor"></div>
+	<div class="charactor"></div>
+	<div class="charactor"></div>
+	<div class="charactor"></div>
+	<div class="charactor"></div>
+	<div class="charactor"></div>
+	<div class="charactor"></div>
+	<div class="charactor"></div>
+	<div class="charactor"></div>
+	<div class="charactor"></div>
+	<div class="charactor"></div>
+	<div class="charactor"></div>
+	</div>
+
+
+	<script>
+
+	var rounds = 15;	
+	var loops = 0;
+	var peopleVisible = true;
+	var gameScore = 0;
+	function startGame() {
+		rounds = 15;
+		loops = 0;
+		peopleVisible = true;
+		gameScore = 0;
+		gameLoop();
+
+	}
+
+	function gameLoop() {
+		loops++;
+		createCharectors();
+		peopleVisible = !peopleVisible;
+		if (loops < rounds*2+1) {
+			setTimeout(gameLoop, peopleVisible ? 2000:1500);}
+		else { 
+			var board = document.getElementById("border");
+			for(var index = 0; index < 16; index++) {
+				board.children[index].className = "charactor";
+			}
+			alert("You scored " + gameScore + " points with " + rounds + " rounds");
+		}	
+		
+	}
+
+	function createCharectors() {
+		var randomNumber = Math.floor(Math.random() * 16) + 1;
+		var board = document.getElementById("border");
+		var classToSet = "";
+		classToSet = peopleVisible ? "charactor visible" : "charactor hidden";
+		for(var index = 0; index < 16; index++) {
+    		board.children[index].className = classToSet;
+			board.children[index].onclick = function(){gameScore += -2;};
+		}
+		board.children[randomNumber-1].className = classToSet + " theif";
+		board.children[randomNumber-1].onclick = function(){gameScore++};
+	}
+	</script>
+</body>
+</html>

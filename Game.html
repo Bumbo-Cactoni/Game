@@ -11,7 +11,7 @@
 			width:650px;
 
 		}
-		
+
 		.charactor{
 			background: url(Good.jpg);
 			background-size: cover;
@@ -35,7 +35,7 @@
 			background: url(Bad.jpg);
 			background-size: cover;
 		}
-		
+
 	</style>
 	<script>
 
@@ -66,10 +66,11 @@
 
 	<script>
 
-	var rounds = 15;	
+	var rounds = 15;
 	var loops = 0;
 	var peopleVisible = true;
 	var gameScore = 0;
+	var unlocked = false;
 	function startGame() {
 		rounds = 15;
 		loops = 0;
@@ -85,28 +86,37 @@
 		peopleVisible = !peopleVisible;
 		if (loops < rounds*2+1) {
 			setTimeout(gameLoop, peopleVisible ? 2000:1500);}
-		else { 
+		else {
 			var board = document.getElementById("border");
 			for(var index = 0; index < 16; index++) {
 				board.children[index].className = "charactor";
 			}
 			alert("You scored " + gameScore + " points with " + rounds + " rounds");
-		}	
-		
+		}
+
 	}
 
 	function createCharectors() {
 		var randomNumber = Math.floor(Math.random() * 16) + 1;
 		var board = document.getElementById("border");
 		var classToSet = "";
+		unlocked = true;
 		classToSet = peopleVisible ? "charactor visible" : "charactor hidden";
 		for(var index = 0; index < 16; index++) {
     		board.children[index].className = classToSet;
-			board.children[index].onclick = function(){gameScore += -2;};
+			board.children[index].onclick = changeScore(-2)
 		}
 		board.children[randomNumber-1].className = classToSet + " theif";
-		board.children[randomNumber-1].onclick = function(){gameScore++};
+		board.children[randomNumber-1].onclick = changeScore(1)
 	}
+
+function changeScore(change) {
+	if (unlocked) {
+		gameScore + change;
+	}
+	unlocked = false;
+
+}
 	</script>
 </body>
 </html>
